@@ -1,0 +1,61 @@
+import pepita.*
+
+describe "Pepita test" {
+
+	test "pepita arranca con 100 joules de energia" {
+		assert.that(pepita.energia() == 100)
+	}
+
+	test "pepita no nace en marDelPlata" {
+		assert.notThat(pepita.ciudadActual() == marDelPlata)
+	}
+
+	test "pepita si esta normal y vuela pierde energia correctamente" {
+		pepita.normalizate()
+		pepita.volar(40)
+		assert.equals(85, pepita.energia())
+	}
+
+	test "pepita si esta normal y despues de volar queda con 30 de energia sigue normal" {
+		pepita.normalizate()
+		pepita.volar(480)
+		assert.equals(normal, pepita.animo())
+	}
+	
+	test "pepita si esta normal y despues de volar queda con menos de 30 de energia se cansa" {
+		pepita.normalizate()
+		pepita.volar(481)
+		assert.equals(cansada, pepita.animo())
+	}
+	
+	test "pepita si esta normal y come aumenta energia correctamente" {
+		pepita.normalizate()
+		pepita.comer(40)
+		assert.equals(180, pepita.energia())		
+	}
+
+	test "pepita si esta euforica y vuela pierde energia correctamente" {
+		pepita.euforizate()
+		pepita.volar(40)
+		assert.equals(95, pepita.energia())		
+	}
+
+	test "pepita si esta euforica y come aumenta energia correctamente" {
+		pepita.euforizate()
+		pepita.comer(4)
+		assert.equals(490, pepita.energia())		
+	}
+
+	test "pepita si esta cansada y vuela pierde energia correctamente" {
+		pepita.cansate()
+		pepita.volar(40)
+		assert.equals(20, pepita.energia())		
+	}
+
+	test "pepita si esta cansada y come aumenta energia correctamente" {
+		pepita.cansate()
+		pepita.comer(40)
+		assert.equals(300, pepita.energia())		
+	}
+}
+	
