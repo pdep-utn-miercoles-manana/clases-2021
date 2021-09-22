@@ -1,0 +1,56 @@
+import aves.*
+import animos.*
+import ciudades.*
+import entrenadores.*
+
+describe "Entranadores test" {
+
+	test "roque sabe entrenar bien a pepita" {
+		pepon.entrenador(roque)
+		pepita.entrenate()
+		assert.equals(479, pepita.energia())
+	}
+
+	test "roque sabe entrenar bien a pepomn" {
+		pepon.entrenador(roque)
+		pepon.entrenate()
+		assert.equals(614, pepon.energia())
+	}
+
+	test "susana sabe entrenar bien a pepita" {
+		pepita.entrenador(susana)
+		pepita.entrenate()
+		assert.equals(688.75, pepita.energia())
+	}
+
+	test "susana sabe entrenar bien a pepon" {
+		pepita.entrenador(susana)
+		pepon.entrenate()
+		assert.equals(910, pepon.energia())
+	}
+	
+	test "susana sabe agregarse aves" {
+		susana.agregarAve(pepita)
+		assert.that(susana.aves().contains(pepita))
+	}
+
+	test "susana sabe quitarse aves" {
+		susana.agregarAve(pepita)
+		susana.quitarAve(pepita)
+		assert.notThat(susana.aves().contains(pepita))
+	}
+
+	test "susana sabe agregarse aves multiples veces" {
+		susana.agregarAve(pepita)
+		susana.agregarAve(pepon)
+		susana.agregarAve(pepita)
+		susana.agregarAve(pepon)
+		assert.equals(2, susana.cantidadAves())
+	}
+
+	test "susana sabe el promedio de energia de sus aves" {
+		susana.agregarAve(pepita)
+		susana.agregarAve(pepon)
+		assert.equals(75, susana.promedioEnergiaAves())
+	}
+}
