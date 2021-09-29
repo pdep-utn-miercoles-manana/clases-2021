@@ -1,35 +1,16 @@
-object buenosAires {
+class Ciudad {
+	const kilometroEnRuta
 	
 	method kilometroEnRuta() {
-		return 0
+		return kilometroEnRuta
 	}
 	
 	method distanciaA(unaCiudad) {
 		return (self.kilometroEnRuta() - unaCiudad.kilometroEnRuta()).abs()
 	}
-	
 }
 
-object marDelPlata {
-	
-	method kilometroEnRuta() {
-		return 400
-	}
-	
-	method distanciaA(unaCiudad) {
-		return (self.kilometroEnRuta() - unaCiudad.kilometroEnRuta()).abs()
-	}
-	
-}
-
-object rosario {
-	
-	method kilometroEnRuta() {
-		return -300
-	}
-	
-	method distanciaA(unaCiudad) {
-		return (self.kilometroEnRuta() - unaCiudad.kilometroEnRuta()).abs()
-	}
-	
-}
+const buenosAires = new Ciudad(kilometroEnRuta = 0)
+const marDelPlata = new Ciudad(kilometroEnRuta = 400)
+const rosario     = new Ciudad(kilometroEnRuta = -300)
+const tandil      = new Ciudad(kilometroEnRuta = 560)

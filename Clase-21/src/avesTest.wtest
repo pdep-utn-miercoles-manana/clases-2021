@@ -17,9 +17,12 @@ describe "Pepita test" {
 	}
 
 	test "pepita cuenta bien a sus ciudades visitadas" {
-		pepita.volarA(rosario)
+		const ciudadDePrueba = new Ciudad(kilometroEnRuta = 1)
+		
+		pepita.volarA(ciudadDePrueba)
 		pepita.volarA(buenosAires)
-		pepita.volarA(rosario)
+		pepita.volarA(ciudadDePrueba)
+		
 		assert.equals(2, pepita.cantidadCiudadesVisitadas())
 	}
 
