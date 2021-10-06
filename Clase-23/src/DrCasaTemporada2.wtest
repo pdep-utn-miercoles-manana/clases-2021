@@ -1,0 +1,63 @@
+import Persona.*
+import Medico.*
+import enfermedades.*
+
+describe "Dr. Casa - Temporada 2" {
+
+	const logan = new Persona(temperatura = 36, cantidadCelulas = 3000000)
+	const frank = new Persona(temperatura = 36, cantidadCelulas = 3500000)
+
+	const malaria800 = new EnfermedadInfecciosa(cantidadCelulasQueAfecta = 800)		
+	const malaria500 = new EnfermedadInfecciosa(cantidadCelulasQueAfecta = 500)
+	const otitis = new EnfermedadInfecciosa(cantidadCelulasQueAfecta = 100)
+	const lupus = new EnfermedadAutoinmune(cantidadCelulasQueAfecta = 10000)
+	
+	const cameron = new Medico(temperatura = 36, cantidadCelulas = 3000000, dosis = 10)
+	const house= new JefeDeDepartamento(temperatura = 36, cantidadCelulas = 3000000, dosis = 0)
+
+	method initialize() {
+		logan.contraer(malaria500)
+		logan.contraer(otitis)
+		logan.contraer(lupus)
+
+		frank.contraer(malaria800)	
+	}
+	
+	test "La malaria se atenua 100 celulas" {
+		malaria500.atenuar(100)
+		assert.equals(400, malaria500.cantidadCelulasQueAfecta())
+	}
+	
+	test "el lupus se atenua 500 celulas" {
+		lupus.atenuar(500)
+		assert.equals(9500, lupus.cantidadCelulasQueAfecta())
+	}
+	
+	test "cameron atiende a logan y el lupus disminuye 150 celulas que afecta" {
+		cameron.atenderA(logan)
+		assert.equals(9850, lupus.cantidadCelulasQueAfecta())
+	}
+	
+	test "cameron atiende a logan y el otitis disminuye 150 celulas que afecta y se cura" {
+		cameron.atenderA(logan)
+		assert.notThat( logan.tieneEnfermedad(otitis) )
+	}
+	
+	test "cameron atiende a logan y el malaria500 disminuye 150 celulas que afecta" {
+		cameron.atenderA(logan)
+		assert.equals(350, malaria500.cantidadCelulasQueAfecta())
+	}
+	
+	test "house atienda a cameron" {
+		const otroLupus = new EnfermedadAutoinmune(cantidadCelulasQueAfecta = 10000)
+		const foreman = new Medico(temperatura = 36, cantidadCelulas = 3000000, dosis = 10)
+		
+		cameron.contraer(otroLupus)
+		
+		house.agregarSubordinado(foreman)
+		house.atenderA(cameron)
+		
+		assert.equals(9850, otroLupus.cantidadCelulasQueAfecta())
+	}
+	
+}
