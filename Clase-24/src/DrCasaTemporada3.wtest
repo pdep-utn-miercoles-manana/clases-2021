@@ -1,0 +1,31 @@
+import Persona.*
+import Medico.*
+import Enfermedades.*
+import GruposSanguineos.*
+
+describe "Dr. Casa - Temporada 3" {
+
+	const logan = new Persona(temperatura = 36, cantidadCelulas = 10000, grupoSanguineo = grupoAB)
+	const foreman = new Medico(temperatura = 36, cantidadCelulas = 10000, dosis = 10, grupoSanguineo = grupoA)
+	const cameron = new Medico(temperatura = 36, cantidadCelulas = 10000, dosis = 10, grupoSanguineo = grupoA)
+	const house = new JefeDeDepartamento(temperatura = 36, cantidadCelulas = 10000, dosis = 0, grupoSanguineo = grupoO)
+
+	test "Un A no le puede donar 1100 células a un O" {
+		assert.throwsException({ cameron.transfundirA(house, 1100) })
+	}
+	
+	test "Un AB no le puede donar a un A" {
+		assert.throwsException({ logan.transfundirA(foreman, 1100) })
+	}
+	
+	test "Un A no le puede donar 300 células a un A" {
+		assert.throwsException({ foreman.transfundirA(cameron, 300) })
+	}
+	
+	test "Un A le puede donar 500 células a un A" {
+		foreman.transfundirA(cameron, 500)
+		
+		assert.equals(9500, foreman.cantidadCelulas())
+		assert.equals(10500, cameron.cantidadCelulas())
+	}
+}
