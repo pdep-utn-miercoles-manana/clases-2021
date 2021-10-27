@@ -1,0 +1,79 @@
+@startuml
+rectangle Herencia #lightgreen;line.dotted {
+  abstract class Juego {
+    nombre
+    precio
+    categoria
+
+    esDeCategoria(unaCategoria)
+    seLlama(unNombre)
+  }
+
+  class JuegoViolento extends Juego {
+    serJugado(unUsuario, unasHoras)
+  }
+
+  class MOBA extends Juego {
+    serJugado(unUsuario, unasHoras)
+  }
+
+  class JuegoTerrorifico extends Juego {
+    serJugado(unUsuario, unasHoras)
+  }
+
+  class JuegoEstrategico extends Juego {
+    serJugado(unUsuario, unasHoras)
+  }
+}
+
+object gameflix {
+  juegosDeCategoria(unaCategoria)
+  juegoQueSeLlama(unNombre)
+  juegoRecomendado()
+  cobrarSuscripciones()
+}
+
+rectangle Composicion #lightblue;line.dotted {
+  class Usuario {
+    suscripcion
+
+    actualizarSuscripcion(unaSuscripcion)
+    jugar(unJuego, unasHoras)
+    reducirHumor(unaCantidad)
+    aumentarHumor(unaCantidad)
+    comprarSkins()
+  }
+
+  interface Suscripcion {
+    permiteJugar(unJuego)
+  }
+
+  object premium {
+    permiteJugar(unJuego)
+  }
+
+  object base {
+    permiteJugar(unJuego)
+  }
+
+  class SuscripcionCategorica implements Suscripcion {
+    permiteJugar(unJuego)
+  }
+
+  object prueba {
+
+  }
+
+  object infantil {
+
+  }
+}
+
+Juego "*" <-u- gameflix : juegos
+Usuario "*" <-u- gameflix : usuarios
+SuscripcionCategorica <|-- prueba
+SuscripcionCategorica <|-- infantil
+Suscripcion <|.. premium
+Suscripcion <|.. base
+Suscripcion <-r- Usuario
+@enduml
